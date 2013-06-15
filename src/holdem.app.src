@@ -1,0 +1,12 @@
+{application, holdem,
+ [{description, "chess server"},
+  {vsn, "1.0"},
+  {modules, [
+            ]},
+  {registered, [
+               ]},
+  {included_applications, []},
+  {applications, [kernel, stdlib]},
+  {env, []},
+  {mod, {holdem_app, []}}
+ ]}.
