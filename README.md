@@ -26,5 +26,6 @@ This erlang application can be used in any type of unlimited holdem games: SnG, 
 5.  Get callbacks (for example, if current player timeouted and autofolded)
 
     >   callback_fun(Holdem = #holdem{}, Arg1, Arg2)->
+    
     >     ...
 
