@@ -16,7 +16,7 @@ This erlang application can be used in any type of unlimited holdem games: SnG, 
 1.  Add this application as dependence in your project
 2.  Start application
 
-         application:start(holdem).
+         application:start(holdem, permanent).
 
 3.  Start holdem process:
 
