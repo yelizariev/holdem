@@ -5,7 +5,7 @@ This erlang application can be used in any type of unlimited holdem games: SnG, 
 * holdem timers
 * holdem snapshot
 
-# it do NOT deal with:
+# It do NOT deal with:
 * communications with frontend
 * encode\decode messages from\to frontend
 * scaling\distributing
