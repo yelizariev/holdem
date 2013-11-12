@@ -76,7 +76,7 @@ holdem_in({I,
 							[#bet{seat=Seat, bet=PBet, batches=P#p.batches}
 							 |I#info.dead]
 					end,
-				NewP=P#p{last_action=fold},
+				NewP=P#p{last_action=fold, bet=0, batches=[0]},
 				{{I#info{players=[NewP|I#info.players],
 				         dead=PlayersOut},
 				  G#game{wait=Wait}},
