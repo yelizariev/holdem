@@ -1,21 +1,22 @@
 This erlang application can be used in any type of unlimited holdem games: SnG, MTT, cash tables etc. 
 
-It deal with:
+# It deal with:
 * holdem logic
 * holdem timers
 * holdem snapshot
 
-it do NOT deal with:
+# It do NOT deal with:
 * communications with frontend
 * encode\decode messages from\to frontend
 * scaling\distributing
+* table chat
 
 # Using
 
 1.  Add this application as dependence in your project
 2.  Start application
 
-         application:start(holdem).
+         application:start(holdem, permanent).
 
 3.  Start holdem process:
 
