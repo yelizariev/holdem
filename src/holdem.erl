@@ -125,7 +125,7 @@ add_to_stack(Pid, Seat, {AddChips, MinStack, MaxStack})->
 	gen_server:call(Pid, {add_to_stack, Seat, {AddChips, MinStack, MaxStack}}, ?CALL_TIMEOUT).
 
 -spec get_stack(pid(), seat())->
-		           {ok, chips()} | {error, not_found}.
+		           {ok, chips(), boolean()} | {error, not_found}.
 get_stack(Pid, Seat)->
 	gen_server:call(Pid, {get_stack, Seat}, ?CALL_TIMEOUT).
 

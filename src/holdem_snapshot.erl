@@ -32,8 +32,8 @@
 get_stack({I,G}, Seat)->
 	{Players, _Bets} = players_and_bets({I,G}),
 	case lists:keyfind(Seat, #?HSP.seat, Players) of
-		#?HSP{stack=Stack}->
-			{ok, Stack};
+		#?HSP{stack=Stack, cards=Cards}->
+			{ok, Stack, Cards/=false};
 		false ->
 			{error, not_found}
 	end.
