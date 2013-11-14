@@ -34,7 +34,7 @@ do(SD_, Seat)->
 	case do(SD, Seat, false) of
 		{player_in_game}->
 			{I,G}=SD,
-			UnseatPlayers = [Seat|I#info.unseat_players],
+			UnseatPlayers = [Seat|lists:delete(Seat,I#info.unseat_players)],
 			{ok, player_in_game, Done#done{
 			                       sd={I#info{unseat_players = UnseatPlayers},G}
 			                      }};
@@ -43,8 +43,10 @@ do(SD_, Seat)->
 		       sd=SD1
 		      }}->
 			#done{sd=SD2} = holdem_start:autoplayer(SD1, Seat, false),
+			{I,G} = SD2,
+			UnseatPlayers = lists:delete(Seat,I#info.unseat_players),
 			NewDone = Done#done{
-			            sd=SD2,
+			            sd={I#info{unseat_players=UnseatPlayers}, G},
 			            broadcast = Done#done.broadcast ++ BC
 			           },
 			{ok, {stack, Stack}, NewDone}
