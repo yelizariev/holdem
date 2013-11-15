@@ -314,7 +314,7 @@ deal_cards({I, Pre})->
 	Seats = [Seat || {Seat, _Card1, _Card2} <- DealingCards],
 	Broadcast = [{viewers, #deal_cards_viewer{seats=Seats}}
 	            | [{Seat, #deal_cards_player{seat=Seat, card1=Card1, card2=Card2, seats=Seats}}
-	               || {Seat, Card1, Card2} <- DealingCards]],
+	               || {Seat, Card1, Card2} <- DealingCards]] ++ [{Seat, #deal_cards_viewer{seats=Seats}} || #p{seat=Seat} <- I#info.players],
 	#done{broadcast=Broadcast,
 	      cur=nobody,
 	      timers=[{?TIMER(I, after_dealing), preflop}],
