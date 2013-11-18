@@ -176,9 +176,10 @@ clear_losers({I,G = #fgame{losers=Losers}})->
 		      []-> [];
 		      _-> [#clear_winner_chips{stacks=Stacks}]
 	      end],
-	#done{sd={I#info{players=NewLosers++I#info.players},
-	          G#fgame{losers=[]}},
-	      broadcast=BC}.
+	SD = {I#info{players=NewLosers++I#info.players},
+	      G#fgame{losers=[]}},
+	NewSD = clear_cur_highlight(Seats, SD),
+	#done{sd=NewSD, broadcast=BC}.
 
 clear_losers([P|Players], Stacks, PAcc, Seats)->
 	NewP = P#p{stack = P#p.stack+P#p.bet,
@@ -213,8 +214,10 @@ clear_winner_chips([], Stacks, PAcc) ->
 clear_winner_cards({I,G = #fgame{winners=Winners}})->
 	Seats = [S || #p{seat=S} <- Winners],
 	NewWinners = [P#p{card1=false, card2=false} || P <- Winners],
-	#done{sd={I,G#fgame{winners=NewWinners}},
-	      broadcast=[#clear_player_cards{seats=Seats}]}.
+	BC = [#clear_player_cards{seats=Seats}],
+	SD = {I,G#fgame{winners=NewWinners}},
+	NewSD = clear_cur_highlight(Seats, SD),
+	#done{sd=NewSD, broadcast=BC}.
 
 onclear({I, G})->
 	Autostart = I#info.autostart,
@@ -399,6 +402,14 @@ show_comb(P = #p{is_open=IsOpen,
 			_->{Seat, Comb#comb.highlight}
 		end,
 	{NewP, BC, CurHighlight}.
+
+clear_cur_highlight([S|_Seats], {I,G = #fgame{cur_highlight={CurSeat, _Highlight}}})
+  when CurSeat=:=S->
+	{I,G#fgame{cur_highlight=false}};
+clear_cur_highlight([_S|Seats], {I,G = #fgame{cur_highlight={_CurSeat, _Highlight}}})->
+	clear_cur_highlight(Seats, {I,G});
+clear_cur_highlight(_Seats, {I,G})->
+	{I,G}.
 
 -spec next_bank(sd())->
 		               #done{}.
