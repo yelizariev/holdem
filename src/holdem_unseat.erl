@@ -68,7 +68,11 @@ do({I,G}, Seat, OnlySimpleUnseat)->
 		{value, P, Players}
 		  when is_record(G, nogame),
 		       is_record(G#nogame.timer, preblinds)->
-			{ok, {stack, P#p.stack}, holdem_start:try_start(fix_sb_bb_seat({I#info{players=Players}, G}, Seat), unseat)};
+			Done = holdem_start:try_start(fix_sb_bb_seat({I#info{players=Players}, G}, Seat), unseat),
+			NewDone = Done#done{
+			            broadcast=[#player_leave{seat=Seat}|Done#done.broadcast]
+			           },
+			{ok, {stack, P#p.stack}, NewDone};
 		{value, P, Players}->
 			fix_button({ok, {stack, P#p.stack},
 			            #done{sd={I#info{players=Players}, G}}},
