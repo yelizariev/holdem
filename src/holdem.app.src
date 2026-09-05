@@ -1,5 +1,5 @@
 {application, holdem,
- [{description, "chess server"},
+ [{description, "Holdem Server"},
   {vsn, "1.0"},
   {modules, [
             ]},
